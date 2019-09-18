@@ -2892,6 +2892,29 @@ class SupportCollectionTest extends TestCase
     /**
      * @dataProvider collectionClassProvider
      */
+    public function testChange($collection)
+    {
+        $c->change('b', function($item) {
+            $item[] = 'child';
+            return $item;
+        });
+        $this->assertEqualsCanonicalizing(['b' => ['child']], $c->all());
+    
+        $c = new $collection(['b' => []]);
+        $c->change('b.c.d', function($item) {
+            return 3;
+        });
+        $this->assertEqualsCanonicalizing(['b' => ['c' => ['d' => 3]]], $c->all());
+	
+        $c->change('b.c.d', function($item) {
+            return 2 + $item;
+        });
+        $this->assertEqualsCanonicalizing(['b' => ['c' => ['d' => 5]]], $c->all());
+    }
+
+    /**
+     * @dataProvider collectionClassProvider
+     */
     public function testGettingMaxItemsFromCollection($collection)
     {
         $c = new $collection([(object) ['foo' => 10], (object) ['foo' => 20]]);
