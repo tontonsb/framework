@@ -463,6 +463,7 @@ class Collection extends BaseCollection implements QueueableCollection
      */
     public function pluck($value, $key = null)
     {
+        
         return $this->toBase()->pluck($value, $key);
     }
 
