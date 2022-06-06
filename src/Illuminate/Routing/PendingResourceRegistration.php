@@ -161,6 +161,20 @@ class PendingResourceRegistration
     }
 
     /**
+     * Specify that the "Authorize" / "can" middleware should be applied to the route with the given options.
+     *
+     * @param  string  $ability
+     * @param  array|string  $models
+     * @return $this
+     */
+    public function can($ability, $models = [])
+    {
+        return empty($models)
+                    ? $this->middleware(['can:'.$ability])
+                    : $this->middleware(['can:'.$ability.','.implode(',', Arr::wrap($models))]);
+    }
+
+    /**
      * Specify middleware that should be removed from the resource routes.
      *
      * @param  array|string  $middleware
