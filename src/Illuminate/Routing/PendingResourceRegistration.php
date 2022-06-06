@@ -149,13 +149,17 @@ class PendingResourceRegistration
      */
     public function middleware($middleware)
     {
-        $middleware = Arr::wrap($middleware);
-
-        foreach ($middleware as $key => $value) {
-            $middleware[$key] = (string) $value;
+        if (! is_array($middleware)) {
+            $middleware = func_get_args();
         }
 
-        $this->options['middleware'] = $middleware;
+        foreach ($middleware as $index => $value) {
+            $middleware[$index] = (string) $value;
+        }
+
+        $this->options['middleware'] = array_merge(
+            (array) ($this->options['middleware'] ?? []), $middleware
+        );
 
         return $this;
     }
