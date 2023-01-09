@@ -2,7 +2,7 @@
 
 namespace Illuminate\Support;
 
-use Closure;
+use Closure; 
 use Illuminate\Support\Traits\Macroable;
 use JsonException;
 use League\CommonMark\Environment\Environment;
