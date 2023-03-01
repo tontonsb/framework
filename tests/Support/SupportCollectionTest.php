@@ -1333,6 +1333,24 @@ class SupportCollectionTest extends TestCase
     /**
      * @dataProvider collectionClassProvider
      */
+    public function testMergeWhen($collection)
+    {
+        $c = new $collection(['name' => 'Hello']);
+
+        $this->assertEquals(
+            ['name' => 'Hello'],
+            $c->mergeWhen(false, new $collection(['id' => 1]))->all(),
+        );
+
+        $this->assertEquals(
+            ['name' => 'Hello', 'id' => 1],
+            $c->mergeWhen(true, new $collection(['id' => 1]))->all(),
+        );
+    }
+
+    /**
+     * @dataProvider collectionClassProvider
+     */
     public function testMergeRecursiveNull($collection)
     {
         $c = new $collection(['name' => 'Hello']);
