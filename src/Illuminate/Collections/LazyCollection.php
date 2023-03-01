@@ -839,6 +839,16 @@ class LazyCollection implements CanBeEscapedWhenCastToString, Enumerable
     }
 
     /**
+     * Conditionally merge the collection with the given items.
+     *
+     * @param  \Illuminate\Contracts\Support\Arrayable<TKey, TValue>|iterable<TKey, TValue>  $items
+     */
+    public function mergeWhen(bool $condition, $items): static
+    {
+        return $this->passthru('mergeWhen', func_get_args());
+    }
+
+    /**
      * Recursively merge the collection with the given items.
      *
      * @template TMergeRecursiveValue

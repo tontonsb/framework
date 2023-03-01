@@ -838,6 +838,16 @@ class Collection implements ArrayAccess, CanBeEscapedWhenCastToString, Enumerabl
     }
 
     /**
+     * Conditionally merge the collection with the given items.
+     *
+     * @param  \Illuminate\Contracts\Support\Arrayable<TKey, TValue>|iterable<TKey, TValue>  $items
+     */
+    public function mergeWhen(bool $condition, $items): static
+    {
+        return $condition ? $this->merge($items) : $this;
+    }
+
+    /**
      * Recursively merge the collection with the given items.
      *
      * @template TMergeRecursiveValue
